@@ -4,6 +4,7 @@ import CounterOne from './component/CounterOne';
 import CounterTwo from './component/CounterTwo';
 import CounterThree from './component/CouterThree';
 import DataFetching from './component/DataFetching';
+import DataFetchingTwo from './component/DataFetchingTwo';
 
 
 
@@ -17,7 +18,8 @@ function App() {
     {/* <CounterOne /> */}
     {/* <CounterTwo /> */}
     {/* <CounterThree /> */}
-    <DataFetching />
+    {/* <DataFetching /> */}
+    <DataFetchingTwo />
 
       
     </div>

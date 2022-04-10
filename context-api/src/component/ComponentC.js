@@ -2,6 +2,7 @@ import React from 'react'
 import ComponentE from './ComponentE'
 
 function ComponentC() {
+  console.log("component c rendering");
   return (
     <div>
         <ComponentE />
