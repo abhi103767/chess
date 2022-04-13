@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Button({ handleClick, text }) {
-    console.log("button is reindering");
+    console.log("button is" + text);
     return (
         <div>
             <button onClick={handleClick}>Increase {text}</button>
@@ -9,4 +9,4 @@ function Button({ handleClick, text }) {
     )
 }
 
-export default Button
+export default React.memo(Button)

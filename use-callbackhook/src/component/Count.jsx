@@ -3,7 +3,7 @@
 import React from 'react'
 
 function Count(props) {
-    console.log('Count is reindering')
+    console.log(props.text + ' is reindering')
     return (
         <div>
             <p>{props.text} - {props.count}</p>
@@ -11,4 +11,4 @@ function Count(props) {
     )
 }
 
-export default Count
+export default React.memo(Count)

@@ -5,6 +5,7 @@ import CounterTwo from './component/CounterTwo';
 import CounterThree from './component/CouterThree';
 import DataFetching from './component/DataFetching';
 import DataFetchingTwo from './component/DataFetchingTwo';
+import Todo from './component/Todo';
 
 
 
@@ -19,7 +20,9 @@ function App() {
     {/* <CounterTwo /> */}
     {/* <CounterThree /> */}
     {/* <DataFetching /> */}
-    <DataFetchingTwo />
+    {/* <DataFetchingTwo /> */}
+    <Todo />
+
 
       
     </div>
