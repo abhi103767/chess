@@ -3,7 +3,7 @@ import axios from 'axios'
 
 function FetchingData({ id, firstName, secondName, checksubmit }) {
 
-    console.log(firstName, secondName)
+    // console.log(firstName, secondName)
     // const [data, setData] = useState({});
 
     // useEffect(() => {
@@ -12,7 +12,16 @@ function FetchingData({ id, firstName, secondName, checksubmit }) {
     // })
 
     const onDelete = (id) => {
-        axios.delete(`http://localhost:3000/posts/${id}`);
+        console.log(id);
+        axios.delete(`http://localhost:3000/posts/${id}`).then(
+            (res) => {
+                console.log(res.data)
+                checksubmit();
+            }
+        );
+
+        checksubmit();
+
     }
     return (
         <div className='single-todo'>
@@ -21,7 +30,7 @@ function FetchingData({ id, firstName, secondName, checksubmit }) {
 
             <button onClick={() => {
                 onDelete(id);
-                checksubmit();
+
             }} >Delete</button>
 
 

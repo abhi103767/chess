@@ -7,19 +7,32 @@ import axios from 'axios';
 import { useState } from 'react';
 
 function App() {
+  console.log("Parent is reindering")
   const [data, setData] = useState([]);
   const [submit, setSubmit] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/posts')
-            .then((res) => setData(res.data));
+      console.log(submit);
+      
+        fetch('http://localhost:3000/posts')
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+         setData(res)
+         
+        })
+        console.log('Use Effect')
+
+
+
     },[submit])
-    console.log(data);
+ 
+    // console.log(data);
+    // console.log(submit);
 
 
  const checksubmit  = () => {
-   console.log('hii');
-   setSubmit(!submit);
+   setSubmit((perv) => !perv);
  }
 
 

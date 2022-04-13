@@ -1,36 +1,5 @@
 {
-  "posts": [
-    {
-      "id": "hngUcMZlE5-djTXTtnEN6",
-      "firstName": "avinahs",
-      "secondName": "sharma"
-    },
-    {
-      "id": "QcWtewLsIj7R792pOnmtA",
-      "firstName": "avinahs",
-      "secondName": "sharma"
-    },
-    {
-      "id": "LasUWy1P8I10gWyh0heLb",
-      "firstName": "Aivnash ",
-      "secondName": "Sharma is thetng"
-    },
-    {
-      "id": "CWL_ld-sb8ke0rBzuKzxk",
-      "firstName": "Aivnash ",
-      "secondName": "Sharma is thetng"
-    },
-    {
-      "id": "ioUP7jQH4EJ9OQkXP6nRZ",
-      "firstName": "Aivnash ",
-      "secondName": "Sharma is thetng"
-    },
-    {
-      "id": "qtGZHx8Khf2af5aNJmeOj",
-      "firstName": "Aivnash ",
-      "secondName": "Sharma is thetng"
-    }
-  ],
+  "posts": [],
   "comments": [],
   "profile": {
     "name": "typicode"
