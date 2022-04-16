@@ -33,7 +33,6 @@ function FetchingData({ id, firstName, secondName, checksubmit }) {
 
             }} >Delete</button>
 
-
         </div>
     )
 }

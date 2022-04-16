@@ -7,9 +7,6 @@ function App() {
 
    let ref = useRef(null);
    let [count,setCounter] = useState(0);
-  
-
-
    useEffect(() =>{
    
   ref =  setInterval(() => {
