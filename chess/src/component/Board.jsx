@@ -10,6 +10,7 @@ function Board() {
     const [allWhitefillPosition, setWhiteAllFillPosition] = useState([]);
     const [possiblePosition, setpossiblePosition] = useState([]);
     const [isCurrentChance, setCurrentChance] = useState('White');
+    const [focusIdentity, setFocusIndentity] = useState('');
     const [whiteBoard, setWhiteBoard] = useState({
         'PawnWhite': [[1, 0], [1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7]],
         'KnightWhite': [[0, 1], [0, 6]],
@@ -62,17 +63,122 @@ function Board() {
     const changeFocus = (index, identity) => {
         console.log(index, identity);
         setFocusIndex([...index]);
-        setpossiblePosition([[2, 4], [3, 4]]);
-        setCurrentChance((perv) => {
-            if (perv === 'White') return "Black";
-            else return 'White';
-        });
+        setpossiblePosition([[2, 4], [3, 4], [5, 3]]);
+        setFocusIndentity(identity);
+
+    }
+
+
+
+    const ChangingPosition = (row, col, current, identity) => {
+        console.log(row, col)
+
+        if (isCurrentChance === 'White') {
+
+            if (current === "Black") {
+                console.log(current);
+                const duplicateBlackBoard = [...blackBoard[identity]];
+                // console.log(row, col);
+                // console.log(duplicateWhiteBoard);
+
+                const duplicateNewBlackBoard = duplicateBlackBoard.filter((item) => {
+                    let [newRow, newCol] = item
+                    console.log(newRow == row && newCol == col);
+                    return !(newRow === row && newCol === col);
+                })
+                console.log(duplicateNewBlackBoard)
+                setBlackBoard((perv) => ({
+                    ...perv,
+                    [identity]: duplicateNewBlackBoard
+                }))
+
+            }
+            console.log('focusIdentity' + focusIdentity);
+            const duplicateWhiteBoard = [...whiteBoard[focusIdentity]];
+            // console.log(row, col);
+            // console.log(duplicateWhiteBoard);
+            let [currentFocusRow, currentFocusCol] = focusIndex;
+
+            const duplicateNewWhiteBoard = duplicateWhiteBoard.filter((item) => {
+                let [newRow, newCol] = item
+                return !(newRow === currentFocusRow && newCol === currentFocusCol);
+            })
+
+            duplicateNewWhiteBoard.push([row, col]);
+
+            setWhiteBoard((perv) => ({
+                ...perv,
+                [focusIdentity]: duplicateNewWhiteBoard
+            }))
+            setCurrentChance((perv) => {
+                if (perv === 'White') return "Black";
+                else return 'White';
+            });
+            setFocusIndex([]);
+
+        }
+
+
+        else {
+            console.log("Black ")
+
+            if (current === "White") {
+                console.log(current);
+                const duplicateWhiteBoard = [...whiteBoard[identity]];
+                // console.log(row, col);
+                // console.log(duplicateWhiteBoard);
+
+                const duplicateNewWhiteBoard = duplicateWhiteBoard.filter((item) => {
+                    let [newRow, newCol] = item
+                    return !(newRow === row && newCol === col);
+                })
+                console.log(duplicateNewWhiteBoard)
+                setWhiteBoard((perv) => ({
+                    ...perv,
+                    [identity]: duplicateNewWhiteBoard
+                }))
+
+
+
+
+
+            }
+
+            const duplicateBlackBoard = [...blackBoard[focusIdentity]];
+            // console.log(row, col);
+            // console.log(duplicateWhiteBoard);
+            let [currentFocusRow, currentFocusCol] = focusIndex;
+
+            const duplicateNewBlackBoard = duplicateBlackBoard.filter((item) => {
+                let [newRow, newCol] = item
+                return !(newRow === currentFocusRow && newCol === currentFocusCol);
+            })
+
+            duplicateNewBlackBoard.push([row, col]);
+            console.log(duplicateNewBlackBoard);
+
+            setBlackBoard((perv) => ({
+                ...perv,
+                [focusIdentity]: duplicateNewBlackBoard
+            }))
+            setCurrentChance((perv) => {
+                if (perv === 'White') return "Black";
+                else return 'White';
+            });
+            setFocusIndex([]);
+
+        }
+
+
 
 
 
 
 
     }
+
+
+
 
 
 
@@ -125,7 +231,7 @@ function Board() {
 
     }
 
-        , [])
+        , [isCurrentChance])
 
 
 
@@ -146,7 +252,9 @@ function Board() {
                             handleClick={changeFocus}
                             isCurrentChance={isCurrentChance}
                             focusIndex={focusIndex}
-                            possiblePosition={possiblePosition} />))
+                            possiblePosition={possiblePosition}
+                            ChangingPosition={ChangingPosition}
+                            focusIdentity={focusIdentity} />))
 
             }
         </div>

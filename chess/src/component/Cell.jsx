@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 
 
-function Cell({ identity, index, handleClick, focusIndex, possiblePosition, isCurrentChance }) {
+function Cell({ identity, focusIdentity, index, handleClick, focusIndex, possiblePosition, isCurrentChance, ChangingPosition }) {
     const [row, col] = index;
     const [newRow, newCol] = focusIndex;
 
@@ -38,13 +38,27 @@ function Cell({ identity, index, handleClick, focusIndex, possiblePosition, isCu
         } onClick={
             () => {
                 let current = '';
+                let currentFocus = '';
                 if (identity !== null) {
                     for (let i = identity.length - 5; i != identity.length && identity !== null; i++) {
                         current += identity[i];
                     }
+
+                    for (let i = focusIdentity.length - 5; i != focusIdentity.length && focusIdentity !== null; i++) {
+                        currentFocus += focusIdentity[i];
+                    }
                 }
-                console.log(current);
+
+
                 if (identity !== null && current === isCurrentChance) handleClick(index, identity);
+                else if (identity === null
+                    || (currentFocus === 'White' && current === "Black")
+                    || (currentFocus === 'Black' && current === "White")) {
+                    possiblePosition.forEach((item) => {
+                        let [possibleRow, possibleCol] = item;
+                        if (possibleRow === row && possibleCol === col) ChangingPosition(row, col, current, identity);
+                    })
+                }
 
             }
         }>
