@@ -36,81 +36,164 @@ function Board() {
 
 
         const MaindiagonalChecking = (index) => {
-            const [row, col] = index;
-            console.log(index);
 
-            // upper and left part
-            let i = row - 1
-            let j = col - 1;
-            const totalPosition = [];
+            if (isCurrentChance === "White") {
+                const [row, col] = index;
+                console.log(index);
 
-
-            while (i >= 0 && j >= 0) {
-
-                const whitePosition = allWhitefillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && j === newCol);
-                })
-
-                console.log(whitePosition);
+                // upper and left part
+                let i = row - 1
+                let j = col - 1;
+                const totalPosition = [];
 
 
-                if (whitePosition.length !== 0) break;
+                while (i >= 0 && j >= 0) {
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    console.log(whitePosition);
 
 
-                const blackPosition = allBlackfillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && j === newCol);
-                })
+                    if (whitePosition.length !== 0) break;
 
-                if (blackPosition.length !== 0) {
 
-                    totalPosition.push(blackPosition[0]);
-                    break;
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    if (blackPosition.length !== 0) {
+
+                        totalPosition.push(blackPosition[0]);
+                        break;
+                    }
+                    console.log([i, j]);
+                    totalPosition.push([i, j]);
+
+                    i--;
+                    j--;
                 }
-                console.log([i, j]);
-                totalPosition.push([i, j]);
 
-                i--;
-                j--;
+                // lower right
+                i = row + 1;
+                j = col + 1;
+
+
+                while (i <= 7 && j <= 7) {
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    console.log(whitePosition);
+
+
+                    if (whitePosition.length !== 0) break;
+
+
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    if (blackPosition.length !== 0) {
+
+                        totalPosition.push(blackPosition[0]);
+                        break;
+                    }
+                    console.log([i, j]);
+                    totalPosition.push([i, j]);
+
+                    i++;
+                    j++;
+                }
+
+                return totalPosition;
             }
 
-            // lower right
-            i = row + 1;
-            j = col + 1;
+
+            else if (isCurrentChance === "Black") {
+
+                const [row, col] = index;
+                console.log(index);
+
+                // upper and left part
+                let i = row - 1
+                let j = col - 1;
+                const totalPosition = [];
 
 
-            while (i <= 7 && j <= 7) {
+                while (i >= 0 && j >= 0) {
 
-                const whitePosition = allWhitefillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && j === newCol);
-                })
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
 
-                console.log(whitePosition);
-
-
-                if (whitePosition.length !== 0) break;
+                    console.log(blackPosition);
 
 
-                const blackPosition = allBlackfillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && j === newCol);
-                })
+                    if (blackPosition.length !== 0) break;
 
-                if (blackPosition.length !== 0) {
 
-                    totalPosition.push(blackPosition[0]);
-                    break;
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    if (whitePosition.length !== 0) {
+
+                        totalPosition.push(whitePosition[0]);
+                        break;
+                    }
+                    console.log([i, j]);
+                    totalPosition.push([i, j]);
+
+                    i--;
+                    j--;
                 }
-                console.log([i, j]);
-                totalPosition.push([i, j]);
 
-                i++;
-                j++;
+                // lower right
+                i = row + 1;
+                j = col + 1;
+
+
+                while (i <= 7 && j <= 7) {
+
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    console.log(blackPosition);
+
+
+                    if (blackPosition.length !== 0) break;
+
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    if (whitePosition.length !== 0) {
+
+                        totalPosition.push(whitePosition[0]);
+                        break;
+                    }
+                    console.log([i, j]);
+                    totalPosition.push([i, j]);
+
+                    i++;
+                    j++;
+                }
+
+                return totalPosition;
             }
-
-            return totalPosition;
         }
 
 
@@ -118,78 +201,156 @@ function Board() {
             const [row, col] = index;
             console.log(index);
 
+
             // upper and right part
-            let i = row - 1
-            let j = col + 1;
-            const totalPosition = [];
+
+            if (isCurrentChance === 'White') {
+                let i = row - 1
+                let j = col + 1;
+                const totalPosition = [];
 
 
-            while (i >= 0 && j <= 7) {
+                while (i >= 0 && j <= 7) {
 
-                const whitePosition = allWhitefillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && j === newCol);
-                })
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
 
-                console.log(whitePosition);
-
-
-                if (whitePosition.length !== 0) break;
+                    console.log(whitePosition);
 
 
-                const blackPosition = allBlackfillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && j === newCol);
-                })
+                    if (whitePosition.length !== 0) break;
 
-                if (blackPosition.length !== 0) {
 
-                    totalPosition.push(blackPosition[0]);
-                    break;
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    if (blackPosition.length !== 0) {
+
+                        totalPosition.push(blackPosition[0]);
+                        break;
+                    }
+                    console.log([i, j]);
+                    totalPosition.push([i, j]);
+
+                    i--;
+                    j++;
                 }
-                console.log([i, j]);
-                totalPosition.push([i, j]);
 
-                i--;
-                j++;
+                // lower left
+                i = row + 1;
+                j = col - 1;
+
+
+                while (i <= 7 && j >= 0) {
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    console.log(whitePosition);
+
+
+                    if (whitePosition.length !== 0) break;
+
+
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    if (blackPosition.length !== 0) {
+
+                        totalPosition.push(blackPosition[0]);
+                        break;
+                    }
+                    console.log([i, j]);
+                    totalPosition.push([i, j]);
+
+                    i++;
+                    j--;
+                }
+
+                return totalPosition;
             }
 
-            // lower left
-            i = row + 1;
-            j = col - 1;
+            if (isCurrentChance === "Black") {
+                let i = row - 1
+                let j = col + 1;
+                const totalPosition = [];
 
 
-            while (i <= 7 && j >= 0) {
+                while (i >= 0 && j <= 7) {
 
-                const whitePosition = allWhitefillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && j === newCol);
-                })
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
 
-                console.log(whitePosition);
-
-
-                if (whitePosition.length !== 0) break;
+                    console.log(blackPosition);
 
 
-                const blackPosition = allBlackfillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && j === newCol);
-                })
+                    if (blackPosition.length !== 0) break;
 
-                if (blackPosition.length !== 0) {
 
-                    totalPosition.push(blackPosition[0]);
-                    break;
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    if (whitePosition.length !== 0) {
+
+                        totalPosition.push(whitePosition[0]);
+                        break;
+                    }
+                    console.log([i, j]);
+                    totalPosition.push([i, j]);
+
+                    i--;
+                    j++;
                 }
-                console.log([i, j]);
-                totalPosition.push([i, j]);
 
-                i++;
-                j--;
+                // lower left
+                i = row + 1;
+                j = col - 1;
+
+
+                while (i <= 7 && j >= 0) {
+
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    console.log(blackPosition);
+
+
+                    if (blackPosition.length !== 0) break;
+
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && j === newCol);
+                    })
+
+                    if (whitePosition.length !== 0) {
+
+                        totalPosition.push(whitePosition[0]);
+                        break;
+                    }
+                    console.log([i, j]);
+                    totalPosition.push([i, j]);
+
+                    i++;
+                    j--;
+                }
+
+                return totalPosition;
             }
-
-            return totalPosition;
         }
 
 
@@ -200,63 +361,127 @@ function Board() {
             let i = row - 1;
             const totalPosition = [];
 
-
-
-            // left side of position of chess icon
-            while (i >= 0) {
-                const whitePosition = allWhitefillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && col === newCol);
-                })
-                console.log('white' + whitePosition)
-
-                if (whitePosition.length !== 0) break;
+            if (isCurrentChance === "White") {
 
 
 
-                const blackPosition = allBlackfillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && col === newCol);
-                })
+                // left side of position of chess icon
+                while (i >= 0) {
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && col === newCol);
+                    })
+                    console.log('white' + whitePosition)
 
-                if (blackPosition.length !== 0) {
-
-                    totalPosition.push(blackPosition[0]);
-                    break;
-                }
-                console.log([i, col]);
-                totalPosition.push([i, col]);
-
-                i--;
-            }
+                    if (whitePosition.length !== 0) break;
 
 
-            i = row + 1;
 
-            // right side of positicohess icn
-            while (i <= 7) {
-                const whitePosition = allWhitefillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && col === newCol);
-                })
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && col === newCol);
+                    })
 
-                if (whitePosition.length !== 0) break;
+                    if (blackPosition.length !== 0) {
 
+                        totalPosition.push(blackPosition[0]);
+                        break;
+                    }
+                    console.log([i, col]);
+                    totalPosition.push([i, col]);
 
-                const blackPosition = allBlackfillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (i === newRow && col === newCol);
-                })
-                console.log(blackPosition);
-                if (blackPosition.length !== 0) {
-                    totalPosition.push(blackPosition[0]);
-                    break;
+                    i--;
                 }
 
-                totalPosition.push([i, col]);
-                i++;
+
+                i = row + 1;
+
+                // right side of positicohess icn
+                while (i <= 7) {
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && col === newCol);
+                    })
+
+                    if (whitePosition.length !== 0) break;
+
+
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && col === newCol);
+                    })
+                    console.log(blackPosition);
+                    if (blackPosition.length !== 0) {
+                        totalPosition.push(blackPosition[0]);
+                        break;
+                    }
+
+                    totalPosition.push([i, col]);
+                    i++;
+                }
+                return totalPosition;
             }
-            return totalPosition;
+
+            if (isCurrentChance === "Black") {
+
+
+
+                // left side of position of chess icon
+                while (i >= 0) {
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && col === newCol);
+                    })
+                    console.log('white' + blackPosition)
+
+                    if (blackPosition.length !== 0) break;
+
+
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && col === newCol);
+                    })
+
+                    if (whitePosition.length !== 0) {
+
+                        totalPosition.push(whitePosition[0]);
+                        break;
+                    }
+                    console.log([i, col]);
+                    totalPosition.push([i, col]);
+
+                    i--;
+                }
+
+
+                i = row + 1;
+
+                // right side of positicohess icn
+                while (i <= 7) {
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && col === newCol);
+                    })
+
+                    if (blackPosition.length !== 0) break;
+
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (i === newRow && col === newCol);
+                    })
+                    console.log(whitePosition);
+                    if (whitePosition.length !== 0) {
+                        totalPosition.push(whitePosition[0]);
+                        break;
+                    }
+
+                    totalPosition.push([i, col]);
+                    i++;
+                }
+                return totalPosition;
+            }
         }
 
 
@@ -269,61 +494,123 @@ function Board() {
 
 
             // left side of position of chess icon
-            while (i >= 0) {
-                const whitePosition = allWhitefillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (row === newRow && i === newCol);
-                })
-                console.log('white' + whitePosition)
 
-                if (whitePosition.length !== 0) break;
+            if (isCurrentChance === "White") {
+                while (i >= 0) {
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (row === newRow && i === newCol);
+                    })
+                    console.log('white' + whitePosition)
 
-
-
-                const blackPosition = allBlackfillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (row === newRow && i === newCol);
-                })
-
-                if (blackPosition.length !== 0) {
-
-                    totalPosition.push(blackPosition[0]);
-                    break;
-                }
-                console.log([row, i]);
-                totalPosition.push([row, i]);
-
-                i--;
-            }
+                    if (whitePosition.length !== 0) break;
 
 
-            i = col + 1;
 
-            // right side of positicohess icn
-            while (i <= 7) {
-                const whitePosition = allWhitefillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (row === newRow && i === newCol);
-                })
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (row === newRow && i === newCol);
+                    })
 
-                if (whitePosition.length !== 0) break;
+                    if (blackPosition.length !== 0) {
 
+                        totalPosition.push(blackPosition[0]);
+                        break;
+                    }
+                    console.log([row, i]);
+                    totalPosition.push([row, i]);
 
-                const blackPosition = allBlackfillPosition.filter((item) => {
-                    const [newRow, newCol] = item;
-                    return (row === newRow && i === newCol);
-                })
-                console.log(blackPosition);
-                if (blackPosition.length !== 0) {
-                    totalPosition.push(blackPosition[0]);
-                    break;
+                    i--;
                 }
 
-                totalPosition.push([row, i]);
-                i++;
+
+                i = col + 1;
+
+                // right side of positicohess icn
+                while (i <= 7) {
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (row === newRow && i === newCol);
+                    })
+
+                    if (whitePosition.length !== 0) break;
+
+
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (row === newRow && i === newCol);
+                    })
+                    console.log(blackPosition);
+                    if (blackPosition.length !== 0) {
+                        totalPosition.push(blackPosition[0]);
+                        break;
+                    }
+
+                    totalPosition.push([row, i]);
+                    i++;
+                }
+                return totalPosition;
             }
-            return totalPosition;
+
+            if (isCurrentChance === "Black") {
+                while (i >= 0) {
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (row === newRow && i === newCol);
+                    })
+                    console.log('white' + blackPosition)
+
+                    if (blackPosition.length !== 0) break;
+
+
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (row === newRow && i === newCol);
+                    })
+
+                    if (whitePosition.length !== 0) {
+
+                        totalPosition.push(whitePosition[0]);
+                        break;
+                    }
+                    console.log([row, i]);
+                    totalPosition.push([row, i]);
+
+                    i--;
+                }
+
+
+                i = col + 1;
+
+                // right side of positicohess icn
+                while (i <= 7) {
+                    const blackPosition = allBlackfillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (row === newRow && i === newCol);
+                    })
+
+                    if (blackPosition.length !== 0) break;
+
+
+                    const whitePosition = allWhitefillPosition.filter((item) => {
+                        const [newRow, newCol] = item;
+                        return (row === newRow && i === newCol);
+                    })
+                    console.log(whitePosition);
+                    if (whitePosition.length !== 0) {
+                        totalPosition.push(whitePosition[0]);
+                        break;
+                    }
+
+                    totalPosition.push([row, i]);
+                    i++;
+                }
+                return totalPosition;
+            }
         }
+
+
 
         if (isCurrentChance === 'White') {
 
@@ -551,6 +838,32 @@ function Board() {
                 return blackRevelantIndexes;
 
             }
+
+            if (identity === 'RookBlack') {
+
+                const possibleVerticalIndexes = verticalChecking(index);
+                const possibleHorizontalIndexes = horizontalChecking(index);
+                return [...possibleHorizontalIndexes, ...possibleVerticalIndexes];
+            }
+
+            if (identity === "BishopBlack") {
+
+                const possibleMainDiagonalIndexes = MaindiagonalChecking(index);
+                const possibleAlternateDiagonalIndexes = AlternatediagonalChecking(index);
+                // console.log(possibleMainDiagonalIndexes);
+                return [...possibleMainDiagonalIndexes, ...possibleAlternateDiagonalIndexes];
+            }
+
+            if (identity === 'QueenBlack') {
+                const possibleVerticalIndexes = verticalChecking(index);
+                const possibleHorizontalIndexes = horizontalChecking(index);
+                const possibleMainDiagonalIndexes = MaindiagonalChecking(index);
+                const possibleAlternateDiagonalIndexes = AlternatediagonalChecking(index);
+                return [...possibleVerticalIndexes, ...possibleHorizontalIndexes, ...possibleMainDiagonalIndexes, ...possibleAlternateDiagonalIndexes]
+
+            }
+
+
         }
 
 
