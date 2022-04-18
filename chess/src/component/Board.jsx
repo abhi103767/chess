@@ -10,7 +10,7 @@ function Board() {
     const [allWhitefillPosition, setWhiteAllFillPosition] = useState([]);
     const [allBlackfillPosition, setBlackAllFillPosition] = useState([]);
     const [possiblePosition, setpossiblePosition] = useState([]);
-    const [isCurrentChance, setCurrentChance] = useState('Black');
+    const [isCurrentChance, setCurrentChance] = useState('White');
     const [focusIdentity, setFocusIndentity] = useState('');
     const [whiteBoard, setWhiteBoard] = useState({
         'PawnWhite': [[1, 0], [1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7]],
@@ -32,6 +32,298 @@ function Board() {
 
 
     const chessCoreLogic = (index, identity) => {
+
+
+
+        const MaindiagonalChecking = (index) => {
+            const [row, col] = index;
+            console.log(index);
+
+            // upper and left part
+            let i = row - 1
+            let j = col - 1;
+            const totalPosition = [];
+
+
+            while (i >= 0 && j >= 0) {
+
+                const whitePosition = allWhitefillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && j === newCol);
+                })
+
+                console.log(whitePosition);
+
+
+                if (whitePosition.length !== 0) break;
+
+
+                const blackPosition = allBlackfillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && j === newCol);
+                })
+
+                if (blackPosition.length !== 0) {
+
+                    totalPosition.push(blackPosition[0]);
+                    break;
+                }
+                console.log([i, j]);
+                totalPosition.push([i, j]);
+
+                i--;
+                j--;
+            }
+
+            // lower right
+            i = row + 1;
+            j = col + 1;
+
+
+            while (i <= 7 && j <= 7) {
+
+                const whitePosition = allWhitefillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && j === newCol);
+                })
+
+                console.log(whitePosition);
+
+
+                if (whitePosition.length !== 0) break;
+
+
+                const blackPosition = allBlackfillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && j === newCol);
+                })
+
+                if (blackPosition.length !== 0) {
+
+                    totalPosition.push(blackPosition[0]);
+                    break;
+                }
+                console.log([i, j]);
+                totalPosition.push([i, j]);
+
+                i++;
+                j++;
+            }
+
+            return totalPosition;
+        }
+
+
+        const AlternatediagonalChecking = (index) => {
+            const [row, col] = index;
+            console.log(index);
+
+            // upper and right part
+            let i = row - 1
+            let j = col + 1;
+            const totalPosition = [];
+
+
+            while (i >= 0 && j <= 7) {
+
+                const whitePosition = allWhitefillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && j === newCol);
+                })
+
+                console.log(whitePosition);
+
+
+                if (whitePosition.length !== 0) break;
+
+
+                const blackPosition = allBlackfillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && j === newCol);
+                })
+
+                if (blackPosition.length !== 0) {
+
+                    totalPosition.push(blackPosition[0]);
+                    break;
+                }
+                console.log([i, j]);
+                totalPosition.push([i, j]);
+
+                i--;
+                j++;
+            }
+
+            // lower left
+            i = row + 1;
+            j = col - 1;
+
+
+            while (i <= 7 && j >= 0) {
+
+                const whitePosition = allWhitefillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && j === newCol);
+                })
+
+                console.log(whitePosition);
+
+
+                if (whitePosition.length !== 0) break;
+
+
+                const blackPosition = allBlackfillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && j === newCol);
+                })
+
+                if (blackPosition.length !== 0) {
+
+                    totalPosition.push(blackPosition[0]);
+                    break;
+                }
+                console.log([i, j]);
+                totalPosition.push([i, j]);
+
+                i++;
+                j--;
+            }
+
+            return totalPosition;
+        }
+
+
+
+        const verticalChecking = (index) => {
+            const position = [];
+            let [row, col] = index;
+            let i = row - 1;
+            const totalPosition = [];
+
+
+
+            // left side of position of chess icon
+            while (i >= 0) {
+                const whitePosition = allWhitefillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && col === newCol);
+                })
+                console.log('white' + whitePosition)
+
+                if (whitePosition.length !== 0) break;
+
+
+
+                const blackPosition = allBlackfillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && col === newCol);
+                })
+
+                if (blackPosition.length !== 0) {
+
+                    totalPosition.push(blackPosition[0]);
+                    break;
+                }
+                console.log([i, col]);
+                totalPosition.push([i, col]);
+
+                i--;
+            }
+
+
+            i = row + 1;
+
+            // right side of positicohess icn
+            while (i <= 7) {
+                const whitePosition = allWhitefillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && col === newCol);
+                })
+
+                if (whitePosition.length !== 0) break;
+
+
+                const blackPosition = allBlackfillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (i === newRow && col === newCol);
+                })
+                console.log(blackPosition);
+                if (blackPosition.length !== 0) {
+                    totalPosition.push(blackPosition[0]);
+                    break;
+                }
+
+                totalPosition.push([i, col]);
+                i++;
+            }
+            return totalPosition;
+        }
+
+
+        const horizontalChecking = (index) => {
+            const position = [];
+            let [row, col] = index;
+            let i = col - 1;
+
+            const totalPosition = [];
+
+
+            // left side of position of chess icon
+            while (i >= 0) {
+                const whitePosition = allWhitefillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (row === newRow && i === newCol);
+                })
+                console.log('white' + whitePosition)
+
+                if (whitePosition.length !== 0) break;
+
+
+
+                const blackPosition = allBlackfillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (row === newRow && i === newCol);
+                })
+
+                if (blackPosition.length !== 0) {
+
+                    totalPosition.push(blackPosition[0]);
+                    break;
+                }
+                console.log([row, i]);
+                totalPosition.push([row, i]);
+
+                i--;
+            }
+
+
+            i = col + 1;
+
+            // right side of positicohess icn
+            while (i <= 7) {
+                const whitePosition = allWhitefillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (row === newRow && i === newCol);
+                })
+
+                if (whitePosition.length !== 0) break;
+
+
+                const blackPosition = allBlackfillPosition.filter((item) => {
+                    const [newRow, newCol] = item;
+                    return (row === newRow && i === newCol);
+                })
+                console.log(blackPosition);
+                if (blackPosition.length !== 0) {
+                    totalPosition.push(blackPosition[0]);
+                    break;
+                }
+
+                totalPosition.push([row, i]);
+                i++;
+            }
+            return totalPosition;
+        }
 
         if (isCurrentChance === 'White') {
 
@@ -83,9 +375,81 @@ function Board() {
                 return pawnLogic();
             }
 
-            if(identity==="KnightWhite") {
-                 
+            if (identity === "KnightWhite") {
+
+                const revelantIndex = () => {
+                    let [row, col] = index;
+                    let possibleChances = [];
+                    const row1 = row + 2; const col1 = col - 1;
+                    possibleChances.push([row1, col1]);
+                    const row2 = row + 2; const col2 = col + 1;
+                    possibleChances.push([row2, col2]);
+                    const row3 = row - 2; const col3 = col - 1;
+                    possibleChances.push([row3, col3]);
+                    const row4 = row - 2; const col4 = col + 1;
+                    possibleChances.push([row4, col4]);
+                    const row5 = row - 1; const col5 = col + 2;
+                    possibleChances.push([row5, col5]);
+                    const row6 = row - 1; const col6 = col - 2;
+                    possibleChances.push([row6, col6]);
+                    const row7 = row + 1; const col7 = col + 2;
+                    possibleChances.push([row7, col7]);
+                    const row8 = row + 1; const col8 = col - 2;
+                    possibleChances.push([row8, col8]);
+
+                    const revelantPossibleChances = possibleChances.filter((item) => {
+                        let [newRow, newCol] = item;
+                        return (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7)
+                    })
+
+                    return revelantPossibleChances;
+                }
+
+                const allRevelentIndexes = revelantIndex();
+                console.log(allRevelentIndexes);
+
+                const whiteRevelantIndexes = allRevelentIndexes.filter((item) => {
+                    let [newRow, newCol] = item;
+
+                    const chances = allWhitefillPosition.filter((item) => {
+                        const [row, col] = item;
+                        return (newRow === row && newCol === col)
+                    });
+
+
+                    if (chances.length === 0) return [newRow, newCol];
+                });
+
+
+
+
+                return whiteRevelantIndexes;
+
             }
+            if (identity === 'RookWhite') {
+
+                const possibleVerticalIndexes = verticalChecking(index);
+                const possibleHorizontalIndexes = horizontalChecking(index);
+                return [...possibleHorizontalIndexes, ...possibleVerticalIndexes];
+            }
+
+            if (identity === "BishopWhite") {
+
+                const possibleMainDiagonalIndexes = MaindiagonalChecking(index);
+                const possibleAlternateDiagonalIndexes = AlternatediagonalChecking(index);
+                // console.log(possibleMainDiagonalIndexes);
+                return [...possibleMainDiagonalIndexes, ...possibleAlternateDiagonalIndexes];
+            }
+
+            if (identity === 'QueenWhite') {
+                const possibleVerticalIndexes = verticalChecking(index);
+                const possibleHorizontalIndexes = horizontalChecking(index);
+                const possibleMainDiagonalIndexes = MaindiagonalChecking(index);
+                const possibleAlternateDiagonalIndexes = AlternatediagonalChecking(index);
+                return [...possibleVerticalIndexes, ...possibleHorizontalIndexes, ...possibleMainDiagonalIndexes, ...possibleAlternateDiagonalIndexes]
+
+            }
+
         }
 
         console.log(isCurrentChance, identity);
@@ -135,12 +499,63 @@ function Board() {
                 }
                 return pawnLogic();
             }
+
+            if (identity === "KnightBlack") {
+
+                const revelantIndex = () => {
+                    let [row, col] = index;
+                    let possibleChances = [];
+                    const row1 = row + 2; const col1 = col - 1;
+                    possibleChances.push([row1, col1]);
+                    const row2 = row + 2; const col2 = col + 1;
+                    possibleChances.push([row2, col2]);
+                    const row3 = row - 2; const col3 = col - 1;
+                    possibleChances.push([row3, col3]);
+                    const row4 = row - 2; const col4 = col + 1;
+                    possibleChances.push([row4, col4]);
+                    const row5 = row - 1; const col5 = col + 2;
+                    possibleChances.push([row5, col5]);
+                    const row6 = row - 1; const col6 = col - 2;
+                    possibleChances.push([row6, col6]);
+                    const row7 = row + 1; const col7 = col + 2;
+                    possibleChances.push([row7, col7]);
+                    const row8 = row + 1; const col8 = col - 2;
+                    possibleChances.push([row8, col8]);
+
+                    const revelantPossibleChances = possibleChances.filter((item) => {
+                        let [newRow, newCol] = item;
+                        return (newRow >= 0 && newRow <= 7 && newCol >= 0 && newCol <= 7)
+                    })
+
+                    return revelantPossibleChances;
+                }
+
+                const allRevelentIndexes = revelantIndex();
+                console.log(allRevelentIndexes);
+
+                const blackRevelantIndexes = allRevelentIndexes.filter((item) => {
+                    let [newRow, newCol] = item;
+
+                    const chances = allBlackfillPosition.filter((item) => {
+                        const [row, col] = item;
+                        return (newRow === row && newCol === col)
+                    });
+
+
+                    if (chances.length === 0) return [newRow, newCol];
+                });
+
+
+
+
+                return blackRevelantIndexes;
+
+            }
         }
 
 
         console.log(allWhitefillPosition);
         console.log(allBlackfillPosition);
-
 
 
     }
