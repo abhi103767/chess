@@ -1,7 +1,25 @@
 import React, { useEffect, useState } from 'react'
-// const ChessSymbols = {
-//     'P' : 
-// }
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChessBishop, faChessPawn, faChessRook, faChessQueen, faChessKing, faChessKnight } from '@fortawesome/free-solid-svg-icons'
+
+const ChessSymbols = {
+    'PawnWhite': <FontAwesomeIcon icon={faChessPawn} className='fa-3x green' />,
+    'BishopWhite': <FontAwesomeIcon icon={faChessBishop} className='fa-3x green' />,
+    'RookWhite': <FontAwesomeIcon icon={faChessRook} className='fa-3x green' />,
+    'QueenWhite': <FontAwesomeIcon icon={faChessQueen} className='fa-3x green' />,
+    "KingWhite": <FontAwesomeIcon icon={faChessKing} className='fa-3x green' />,
+    "KnightWhite": <FontAwesomeIcon icon={faChessKnight} className='fa-3x green' />,
+
+    'PawnBlack': <FontAwesomeIcon icon={faChessPawn} className='fa-3x red' />,
+    'BishopBlack': <FontAwesomeIcon icon={faChessBishop} className='fa-3x red' />,
+    'RookBlack': <FontAwesomeIcon icon={faChessRook} className='fa-3x red' />,
+    'QueenBlack': <FontAwesomeIcon icon={faChessQueen} className='fa-3x red' />,
+    "KingBlack": <FontAwesomeIcon icon={faChessKing} className='fa-3x red' />,
+    "KnightBlack": <FontAwesomeIcon icon={faChessKnight} className='fa-3x red' />
+
+}
 
 
 
@@ -62,7 +80,12 @@ function Cell({ identity, focusIdentity, index, handleClick, focusIndex, possibl
 
             }
         }>
-            <div style={{ color: 'red' }} >{identity}</div>
+            <div style={{ color: 'red' }} >
+                <div className='logo'>
+                    {ChessSymbols[identity]}
+                </div>
+            </div>
+
 
         </div >
     )
