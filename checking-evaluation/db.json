@@ -1,0 +1,115 @@
+{
+  "houses": [
+    {
+      "name": "Avinash",
+      "ownerName": "SACHIN TENDULAR",
+      "address": "thatipur",
+      "areaCode": "474001",
+      "rent": "50000",
+      "bachelor": true,
+      "img": "https://a0.muscache.com/im/pictures/miso/Hosting-53103033/original/5bfe1980-f095-4688-a784-543faa306332.jpeg?im_w=720",
+      "id": 1
+    },
+    {
+      "name": "AVIMASH",
+      "ownerName": "VIRAT",
+      "address": "VARNASI",
+      "areaCode": "21342",
+      "rent": "1000",
+      "img": "https://a0.muscache.com/im/pictures/miso/Hosting-53103033/original/5bfe1980-f095-4688-a784-543faa306332.jpeg?im_w=720",
+      "id": 2
+    },
+    {
+      "bachelor": true,
+      "married": false,
+      "name": "Avinash",
+      "ownerName": "SACHIN TENDULAR",
+      "address": "thatipur",
+      "areaCode": "21342",
+      "rent": "50000",
+      "houseImage": "https://a0.muscache.com/im/pictures/miso/Hosting-53103033/original/5bfe1980-f095-4688-a784-543faa306332.jpeg?im_w=720",
+      "id": 3
+    },
+    {
+      "name": "AMAN",
+      "ownerName": "AVINASH",
+      "address": "23232",
+      "areaCode": "293203",
+      "rent": "40000",
+      "preferred": "on",
+      "id": 4
+    },
+    {
+      "id": 100,
+      "name": "Satyajeet Sahu",
+      "ownerName": "marks",
+      "address": "los anglos",
+      "areaCode": "123456",
+      "rent": "200",
+      "tenants": "married",
+      "image": "https://a0.muscache.com/im/pictures/e7bda6f2-8859-471c-b0c8-945d7c9e166f.jpg?im_w=720"
+    },
+    {
+      "id": 101
+    },
+    {
+      "name": "nirbhay",
+      "ownerName": "AVinash",
+      "address": "Indra Nagar Thatipur",
+      "areaCode": "21342",
+      "rent": "-2",
+      "bachelor": true,
+      "image": "https://a0.muscache.com/im/pictures/miso/Hosting-53103033/original/5bfe1980-f095-4688-a784-543faa306332.jpeg?im_w=720",
+      "id": 102
+    },
+    {
+      "name": "saraswati",
+      "ownerName": "aviash",
+      "address": "thatipur",
+      "areaCode": "232121",
+      "rent": "21212",
+      "tenent": "on",
+      "image": "https://a0.muscache.com/im/pictures/e7bda6f2-8859-471c-b0c8-945d7c9e166f.jpg?im_w=720",
+      "id": 103
+    }
+  ],
+  "house": [
+    {
+      "name": "ABHISHECK",
+      "ownerName": "MS",
+      "address": "thatipur",
+      "areaCode": "2134111",
+      "rent": "1000000",
+      "bachelor": true,
+      "married": false,
+      "image": "https://a0.muscache.com/im/pictures/miso/Hosting-53103033/original/5bfe1980-f095-4688-a784-543faa306332.jpeg?im_w=720",
+      "id": 1
+    },
+    {
+      "name": "AMAN",
+      "ownerName": "AVINASH",
+      "address": "23232",
+      "areaCode": "293203",
+      "rent": "40000",
+      "preferred": "on",
+      "id": 4
+    },
+    {
+      "id": 5
+    },
+    {
+      "name": "Bharat",
+      "ownerName": "VIRAT",
+      "address": "thatipur",
+      "areaCode": "474001",
+      "rent": "50000",
+      "bachelor": "",
+      "married": true,
+      "image": "https://a0.muscache.com/im/pictures/miso/Hosting-53103033/original/5bfe1980-f095-4688-a784-543faa306332.jpeg?im_w=720",
+      "id": 6
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

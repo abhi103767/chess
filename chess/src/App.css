@@ -9,7 +9,7 @@ body{
 
 
 .board{
-  margin-top: 60px;
+  margin-top: 25px;
   display: grid;
   grid-template-columns: auto auto auto auto auto auto auto auto;
   justify-content: center;
@@ -17,15 +17,15 @@ body{
 }
 
 .cell{
-  width: 80px;
-  height: 80px;
-  border: 1px solid black;
+  width: 90px;
+  height: 90px;
+
 }
 
 .logo{
  display: flex;
  flex-direction: column;
- margin-top: 12px;
+ margin-top: 10px;
  align-items: center;
  justify-content: center;
 
@@ -36,16 +36,19 @@ body{
 }
 
 .backgroundBlack{
-  background-color: black;
+  background-color:black;
 }
 .backGroundFocus{
-  background-color: rgb(245, 233, 12);
+  background-color: rgb(232, 229, 175);
 }
 
 .green{
-    color: rgb(6, 203, 72);
+    color: #039be5;
+
 }
 
 .red {
-  color: rgb(255, 6, 6);
+  color: #f44336
+
+  ;
 }

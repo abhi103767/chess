@@ -5,19 +5,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChessBishop, faChessPawn, faChessRook, faChessQueen, faChessKing, faChessKnight } from '@fortawesome/free-solid-svg-icons'
 
 const ChessSymbols = {
-    'PawnWhite': <FontAwesomeIcon icon={faChessPawn} className='fa-3x green' />,
-    'BishopWhite': <FontAwesomeIcon icon={faChessBishop} className='fa-3x green' />,
-    'RookWhite': <FontAwesomeIcon icon={faChessRook} className='fa-3x green' />,
-    'QueenWhite': <FontAwesomeIcon icon={faChessQueen} className='fa-3x green' />,
-    "KingWhite": <FontAwesomeIcon icon={faChessKing} className='fa-3x green' />,
-    "KnightWhite": <FontAwesomeIcon icon={faChessKnight} className='fa-3x green' />,
+    'PawnWhite': <FontAwesomeIcon icon={faChessPawn} className='fa-4x green' />,
+    'BishopWhite': <FontAwesomeIcon icon={faChessBishop} className='fa-4x green' />,
+    'RookWhite': <FontAwesomeIcon icon={faChessRook} className='fa-4x green' />,
+    'QueenWhite': <FontAwesomeIcon icon={faChessQueen} className='fa-4x green' />,
+    "KingWhite": <FontAwesomeIcon icon={faChessKing} className='fa-4x green' />,
+    "KnightWhite": <FontAwesomeIcon icon={faChessKnight} className='fa-4x green' />,
 
-    'PawnBlack': <FontAwesomeIcon icon={faChessPawn} className='fa-3x red' />,
-    'BishopBlack': <FontAwesomeIcon icon={faChessBishop} className='fa-3x red' />,
-    'RookBlack': <FontAwesomeIcon icon={faChessRook} className='fa-3x red' />,
-    'QueenBlack': <FontAwesomeIcon icon={faChessQueen} className='fa-3x red' />,
-    "KingBlack": <FontAwesomeIcon icon={faChessKing} className='fa-3x red' />,
-    "KnightBlack": <FontAwesomeIcon icon={faChessKnight} className='fa-3x red' />
+    'PawnBlack': <FontAwesomeIcon icon={faChessPawn} className='fa-4x red' />,
+    'BishopBlack': <FontAwesomeIcon icon={faChessBishop} className='fa-4x red' />,
+    'RookBlack': <FontAwesomeIcon icon={faChessRook} className='fa-4x red' />,
+    'QueenBlack': <FontAwesomeIcon icon={faChessQueen} className='fa-4x red' />,
+    "KingBlack": <FontAwesomeIcon icon={faChessKing} className='fa-4x red' />,
+    "KnightBlack": <FontAwesomeIcon icon={faChessKnight} className='fa-4x red' />
 
 }
 

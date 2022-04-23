@@ -763,16 +763,17 @@ function Board() {
                     if (!isRookAndQueenEnemy.every((item) => item === false)) return true;
 
 
-                    // // Enemy king attack on our king.
+                    // Enemy king attack on our king.
 
-                    // const KingEnemy = [...kingLogic([row, col])];
+                    const KingEnemy = [...kingLogic([row, col])];
                     // const isKingEnemyPresent = KingEnemy.map((item) => {
                     //     const [kingRow, kingCol] = item;
                     //     const isKingPresent = allEnemyPosition[kingEnemyPositionName].filter((item) => {
                     //         const [newKingRow, newKingCol] = item;
                     //         return (kingRow === newKingRow && newKingCol === kingCol);
                     //     })
-                    //     if (isKingPresent.length !== 0) return false;
+                    //     if (isKingPresent.length !== 0) return true;
+                    //     return false;
                     // })
 
                     // if (!isKingEnemyPresent.every((item) => item === false)) return true;

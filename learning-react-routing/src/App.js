@@ -6,6 +6,8 @@ import Home from './component/Home';
 import About from './component/About';
 import UserList from './component/UserList';
 import UserDetail from './component/UserDetail';
+import Login from './component/Login';
+import PrivateComponent from './component/PrivateComponent';
 
 
 
@@ -20,7 +22,8 @@ function App() {
         <Route path='/' element={<Home/>}></Route>
         <Route path='/about' element={<About/>}></Route>
         <Route path='/userlist' element={<UserList/>}></Route>
-        <Route path='/userlist/:id' element={<UserDetail/>}></Route>
+        <Route path='/userlist/:id' element={<PrivateComponent><UserDetail/></PrivateComponent>}></Route>
+        <Route path='/userlist/login' element={<Login/>}></Route>
       </Routes>
       
     </div>
