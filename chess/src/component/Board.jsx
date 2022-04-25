@@ -1066,11 +1066,28 @@ function Board() {
     useEffect(() => {
 
         const iskingAttacked = chessCoreLogic(isCurrentChance, [], 'KingSafe');
-        if (iskingAttacked === true) alert(`${isCurrentChance} king is underattacked`);
-
-
-
+        if (iskingAttacked === true && isCurrentChance === "White") setAttackOnWhiteKing(true);
+        if (iskingAttacked === true && isCurrentChance === "Black"); setAttackOnBlackKing(true);
     }, [checkingKing])
+
+
+
+
+    useEffect(() => {
+        if (attackOnBlackKing) {
+            setAttackOnBlackKing(false)
+
+        }
+        if (attackOnWhiteKing) {
+            alert('White is under Attack')
+
+
+        }
+
+
+
+
+    }, [attackOnBlackKing, attackOnWhiteKing])
 
 
 
