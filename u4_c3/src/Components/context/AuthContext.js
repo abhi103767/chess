@@ -15,6 +15,8 @@ const AuthContextProvider = ({ children }) => {
       'password': password,
   }).then(res => setToken(res.data.token));
 
+ 
+
   };
   const handleLogout = () => {
     //  set token back to " " once logged out

@@ -17,7 +17,7 @@ export const SingleBook = () => {
   const [data, setData] = useState([])
   useEffect(() => {
 
-    axios.get(`http://localhost:8080/books/1`)
+    axios.get(`http://localhost:8080/books/${id}`)
       .then((res) => setData(res.data))
     // make a GET request to http://localhost:8080/books/${id}`
     // use useParams to get the id
