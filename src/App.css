@@ -50,5 +50,8 @@ body{
 .red {
   color: #f44336
 
-  ;
+}
+
+.possibleChances{
+   background-color: lime;
 }

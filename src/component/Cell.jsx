@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChessBishop, faChessPawn, faChessRook, faChessQueen, faChessKing, faChessKnight } from '@fortawesome/free-solid-svg-icons'
+import { faChessBishop, faChessPawn, faChessRook, faChessQueen, faChessKing, faChessKnight, faIndent } from '@fortawesome/free-solid-svg-icons'
 
 const ChessSymbols = {
     'PawnWhite': <FontAwesomeIcon icon={faChessPawn} className='fa-4x green' />,
@@ -27,6 +27,8 @@ const ChessSymbols = {
 function Cell({ identity, focusIdentity, index, handleClick, focusIndex, possiblePosition, isCurrentChance, ChangingPosition }) {
     const [row, col] = index;
     const [newRow, newCol] = focusIndex;
+    const [focusPossibleChances, setFocusPossibleChances] = useState(false);
+
 
 
     // console.log(focusIndex);
@@ -37,6 +39,7 @@ function Cell({ identity, focusIdentity, index, handleClick, focusIndex, possibl
     // row === newRow && col === newCol && isBackgroundColor('backgroundFocus');
 
     useEffect(() => {
+        setFocusPossibleChances(false);
         setIsBackgroundColor((perv) => {
 
             if (newRow === row && newCol === col) {
@@ -46,13 +49,27 @@ function Cell({ identity, focusIdentity, index, handleClick, focusIndex, possibl
                 perv = (row + col) % 2 === 0 ? 'backgroundBlack' : 'backgroundWhite';
                 return perv
             }
+        })
 
+
+        possiblePosition.forEach((item) => {
+            let [possibleRow, possibleCol] = item;
+
+
+            if (possibleRow === row && possibleCol === col && focusIdentity.includes(isCurrentChance)) {
+                // console.log(isCurrentChance);
+                // console.log(focusIdentity);
+                // console.log(row + " " + col)
+
+                setFocusPossibleChances(true);
+            }
         })
     }, [newRow, newCol])
+
     const cell = 'cell';
 
     return (
-        <div className={`${isBackgroundColor} ${cell}`
+        <div className={`${isBackgroundColor} ${cell} ${focusPossibleChances ? "possibleChances" : ''}`
         } onClick={
             () => {
                 let current = '';
@@ -68,13 +85,20 @@ function Cell({ identity, focusIdentity, index, handleClick, focusIndex, possibl
                 }
 
 
-                if (identity !== null && current === isCurrentChance) handleClick(index, identity);
+                if (identity !== null && current === isCurrentChance) {
+
+                    handleClick(index, identity);
+
+                }
                 else if (identity === null
                     || (currentFocus === 'White' && current === "Black")
                     || (currentFocus === 'Black' && current === "White")) {
+
                     possiblePosition.forEach((item) => {
                         let [possibleRow, possibleCol] = item;
-                        if (possibleRow === row && possibleCol === col) ChangingPosition(row, col, current, identity);
+                        if (possibleRow === row && possibleCol === col) {
+                            ChangingPosition(row, col, current, identity)
+                        }
                     })
                 }
 
