@@ -70,7 +70,7 @@ function Board() {
         KingBlack: [[7, 4]],
     });
 
-    const chessCoreLogic = (team, index, identity) => {
+    const chessCoreLogic = (team, index, identity, whiteBoard, blackBoard, allWhitefillPosition, allBlackfillPosition) => {
         if (identity === "KingSafe") {
             const isKingAttacked = () => {
                 let enemy = team === "White" ? "Black" : "White";
@@ -365,35 +365,64 @@ function Board() {
     const changeFocus = (index, identity) => {
         // console.log(index, identity);
         setFocusIndex([...index]);
-        let possibleChances = chessCoreLogic(isCurrentChance, index, identity);
-        // console.log(possibleChances);
 
-        setpossiblePosition([...possibleChances]);
+        let possibleChances = chessCoreLogic(isCurrentChance, index, identity, whiteBoard, blackBoard, allWhitefillPosition, allBlackfillPosition);
+        console.log(possibleChances);
+        const attacked = possibleChances.filter((currentFocus) => {
+            const [newRow, newCol] = index;
+            const [row, col] = currentFocus;
+            let flagIdentification = '';
+
+            console.log(flagIdentification);
+            let curr = '';
+
+            if (!board[row][col]) curr = '';
+            else if (board[row][col].includes('Black')) curr = 'Black';
+            else if (board[row][col].includes("White")) curr = "White";
+            // console.log(isCurrentChance);
+            // console.log(row + " " + col + " " + board[row][col]);
+            const { allwhiteBoard, allblackBoard } = duplicateChangingPosition(identity, [...index], isCurrentChance, row, col, curr, board[row][col]);
+            console.log(allwhiteBoard)
+            console.log(allblackBoard)
+            const { duplicateWhiteBoard, duplicateBlackBoard } = duplicate(allwhiteBoard, allblackBoard)
+            console.log(duplicateWhiteBoard, duplicateBlackBoard)
+            return !chessCoreLogic(isCurrentChance, currentFocus, "KingSafe", allwhiteBoard, allblackBoard, duplicateWhiteBoard, duplicateBlackBoard);
+        });
+        console.log(attacked);
+
+
+        setpossiblePosition([...attacked]);
         setFocusIndentity(identity);
     };
 
-    const ChangingPosition = (row, col, current, identity) => {
-        // console.log(row, col)
 
+    function duplicateChangingPosition(focusIdentity, focusIndex, isCurrentChance, row, col, current, identity) {
+
+        // console.log(row, col)
+        console.log(isCurrentChance, current);
         if (isCurrentChance === "White") {
+            let duplicateNewBlackBoard;
+
+
             if (current === "Black") {
+
+                console.log(identity);
                 // console.log(current);
                 const duplicateBlackBoard = [...blackBoard[identity]];
                 // console.log(row, col);
                 // console.log(duplicateWhiteBoard);
+                console.log(current);
 
-                const duplicateNewBlackBoard = duplicateBlackBoard.filter((item) => {
+                duplicateNewBlackBoard = duplicateBlackBoard.filter((item) => {
                     let [newRow, newCol] = item;
                     // console.log(newRow == row && newCol == col);
                     return !(newRow === row && newCol === col);
                 });
+
                 // console.log(duplicateNewBlackBoard)
-                setBlackBoard((perv) => ({
-                    ...perv,
-                    [identity]: duplicateNewBlackBoard,
-                }));
+                console.log(current);
             }
-            // console.log('focusIdentity' + focusIdentity);
+            console.log('focusIdentity' + focusIdentity);
             const duplicateWhiteBoard = [...whiteBoard[focusIdentity]];
             // console.log(row, col);
             // console.log(duplicateWhiteBoard);
@@ -406,34 +435,46 @@ function Board() {
 
             duplicateNewWhiteBoard.push([row, col]);
 
-            setWhiteBoard((perv) => ({
-                ...perv,
-                [focusIdentity]: duplicateNewWhiteBoard,
-            }));
-            setCurrentChance((perv) => {
-                if (perv === "White") return "Black";
-                else return "White";
-            });
-            setFocusIndex([]);
+            // console.log(duplicateNewWhiteBoard)
+            const allwhiteBoard = {};
+            const allblackBoard = {};
+
+            for (let key in whiteBoard) {
+                allwhiteBoard[key] = [...whiteBoard[key]];
+            }
+            //reference issue;
+            allwhiteBoard[focusIdentity] = duplicateNewWhiteBoard;
+            for (let key in blackBoard) {
+                allblackBoard[key] = [...blackBoard[key]];
+            }
+            console.log(allblackBoard)
+            console.log(duplicateNewBlackBoard)
+            console.log(identity)
+            if (identity) allblackBoard[identity] = duplicateNewBlackBoard;
+            return {
+                duplicateNewBlackBoard,
+                duplicateNewWhiteBoard,
+                allblackBoard,
+                allwhiteBoard,
+
+            }
         } else {
+            let duplicateNewWhiteBoard;
             if (current === "White") {
                 // console.log(current);
                 const duplicateWhiteBoard = [...whiteBoard[identity]];
                 // console.log(row, col);
                 // console.log(duplicateWhiteBoard);
 
-                const duplicateNewWhiteBoard = duplicateWhiteBoard.filter((item) => {
+                duplicateNewWhiteBoard = duplicateWhiteBoard.filter((item) => {
                     let [newRow, newCol] = item;
                     return !(newRow === row && newCol === col);
                 });
                 // console.log(duplicateNewWhiteBoard)
 
-                setWhiteBoard((perv) => ({
-                    ...perv,
-                    [identity]: duplicateNewWhiteBoard,
-                }));
             }
-
+            console.log(identity);
+            console.log(focusIdentity);
             const duplicateBlackBoard = [...blackBoard[focusIdentity]];
             // console.log(row, col);
             // console.log(duplicateWhiteBoard);
@@ -446,11 +487,54 @@ function Board() {
 
             duplicateNewBlackBoard.push([row, col]);
             // console.log(duplicateNewBlackBoard);
+            const allblackBoard = {}
+            const allwhiteBoard = {};
+            for (let key in blackBoard) {
+                allblackBoard[key] = [...blackBoard[key]]
+            }
+            allblackBoard[focusIdentity] = duplicateNewBlackBoard;
+            for (let key in whiteBoard) {
+                allwhiteBoard[key] = [...whiteBoard[key]];
+            }
 
-            setBlackBoard((perv) => ({
-                ...perv,
-                [focusIdentity]: duplicateNewBlackBoard,
-            }));
+            if (identity) allwhiteBoard[identity] = duplicateNewWhiteBoard;
+
+
+            return {
+                duplicateNewBlackBoard,
+                duplicateNewWhiteBoard,
+                allblackBoard,
+                allwhiteBoard
+
+            }
+        }
+
+
+    }
+
+    const ChangingPosition = (row, col, current, identity) => {
+        // console.log(row, col)
+
+
+        if (isCurrentChance === "White") {
+            const { duplicateNewBlackBoard, duplicateNewWhiteBoard, allblackBoard, allwhiteBoard } = duplicateChangingPosition(focusIdentity, focusIndex, isCurrentChance, row, col, current, identity);
+            if (current === "Black") {
+                setBlackBoard(allblackBoard);
+            }
+            setWhiteBoard(allwhiteBoard);
+            setCurrentChance((perv) => {
+                if (perv === "White") return "Black";
+                else return "White";
+            });
+            setFocusIndex([]);
+        } else {
+            const { duplicateNewBlackBoard, duplicateNewWhiteBoard, allwhiteBoard, allblackBoard } = duplicateChangingPosition(focusIdentity, focusIndex, isCurrentChance, row, col, current, identity);
+            if (current === "White") {
+
+                setWhiteBoard(allwhiteBoard);
+            }
+
+            setBlackBoard(allblackBoard);
             setCurrentChance((perv) => {
                 if (perv === "White") return "Black";
                 else return "White";
@@ -459,10 +543,9 @@ function Board() {
         }
     };
 
-    // console.log(board);
+    // duplicating 
 
-    // providing position of white pieces of chess into board
-    useEffect(() => {
+    function duplicate(whiteBoard, blackBoard) {
         let duplicateBoard = Array(8)
             .fill()
             .map(() => Array(8).fill(null));
@@ -483,6 +566,8 @@ function Board() {
             });
         }
         for (let key in blackBoard) {
+            console.log(key);
+            console.log(blackBoard)
             blackBoard[key].forEach((item) => {
                 // console.log(item)
                 duplicateBlackBoard.push(item);
@@ -495,6 +580,14 @@ function Board() {
                 // console.log(duplicateBoard);
             });
         }
+        return { duplicateWhiteBoard, duplicateBlackBoard, duplicateBoard };
+    }
+
+    // console.log(board);
+
+    // providing position of white pieces of chess into board
+    useEffect(() => {
+        const { duplicateWhiteBoard, duplicateBlackBoard, duplicateBoard } = duplicate(whiteBoard, blackBoard);
         setBoard(duplicateBoard);
         setcheckingKing(checkingKing === true ? false : true);
         setBlackAllFillPosition(duplicateBlackBoard);
@@ -504,21 +597,22 @@ function Board() {
     // checking king in on attack
 
     useEffect(() => {
-        const iskingAttacked = chessCoreLogic(isCurrentChance, [], "KingSafe");
-        // console.log(iskingAttacked)
+        const iskingAttacked = chessCoreLogic(isCurrentChance, [], "KingSafe", whiteBoard, blackBoard, allWhitefillPosition, allBlackfillPosition);
+        console.log(iskingAttacked)
         console.log(isCurrentChance);
-        if (iskingAttacked === true && isCurrentChance === "White")
-            setAttackOnWhiteKing(true);
-        if (iskingAttacked === true && isCurrentChance === "Black");
-        setAttackOnBlackKing(true);
+        if (iskingAttacked === true && isCurrentChance === "White") setAttackOnWhiteKing(true);
+        if (iskingAttacked === true && isCurrentChance === "Black") setAttackOnBlackKing(true);
     }, [checkingKing]);
 
     useEffect(() => {
+
+
         if (attackOnBlackKing) {
-            setAttackOnBlackKing(false);
+            alert("Red King is under Attack")
         }
+
         if (attackOnWhiteKing) {
-            alert("White is under Attack");
+            alert("Blue is under Attack");
         }
     }, [attackOnBlackKing, attackOnWhiteKing]);
 
