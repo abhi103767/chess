@@ -1,6 +1,7 @@
 
         const kingLogic = (index,team,allBlackfillPosition,allWhitefillPosition) => {
             const [row, col] = index;
+            console.log(index)
             // console.log(index);
 
             let allTeamMemberPosition;
@@ -46,22 +47,24 @@
             }
 
             const allRevelentIndexes = revelantIndex();
-            // console.log(allRevelentIndexes);
+            console.log(allRevelentIndexes);
+            console.log(allTeamMemberPosition)
+            
 
             const teamRevelantIndexes = allRevelentIndexes.filter((item) => {
                 let [newRow, newCol] = item;
 
                 const chances = allTeamMemberPosition.filter((item) => {
                     const [row, col] = item;
+             
                     return (newRow === row && newCol === col)
                 });
-
-
+   
                 if (chances.length === 0) return [newRow, newCol];
             });
 
 
-
+console.log(teamRevelantIndexes)
 
             return teamRevelantIndexes;
 

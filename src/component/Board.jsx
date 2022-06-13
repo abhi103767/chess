@@ -80,7 +80,7 @@ function Board() {
                 // console.log(`king ${team} is attacked`);
 
                 const kingPositionName = "King" + team;
-                const kingEnemyPositionName = "King" + team;
+                const kingEnemyPositionName = "King" + enemy;
                 const pawnEnemyPositionName = "Pawn" + enemy;
                 const knightEnemyPositionName = "Knight" + enemy;
                 const rookEnemyPositionName = "Rook" + enemy;
@@ -234,7 +234,7 @@ function Board() {
 
                     // Enemy king attack on our king.
 
-                    const KingEnemy = [
+                    const KingTeam = [
                         ...kingLogic(
                             [row, col],
                             team,
@@ -242,18 +242,20 @@ function Board() {
                             allWhitefillPosition
                         ),
                     ];
-                    // const isKingEnemyPresent = KingEnemy.map((item) => {
-                    //     const [kingRow, kingCol] = item;
-                    //     const isKingPresent = allEnemyPosition[kingEnemyPositionName].filter((item) => {
-                    //         const [newKingRow, newKingCol] = item;
-                    //         return (kingRow === newKingRow && newKingCol === kingCol);
-                    //     })
-                    //     if (isKingPresent.length !== 0) return true;
-                    //     return false;
-                    // })
 
-                    // if (!isKingEnemyPresent.every((item) => item === false)) return true;
 
+                    console.log(row, col)
+                    console.log(KingTeam);
+                    const [enemyrow, enemycol] = allEnemyPosition[kingEnemyPositionName][0];
+
+
+                    const isKingEnemyPresent = KingTeam.filter((item) => {
+                        const [kingRow, kingCol] = item;
+                        return enemyrow === kingRow && enemycol === kingCol
+                    })
+                    // console.log(isKingEnemyPresent)
+
+                    if (isKingEnemyPresent.length !== 0) return true;
                     return false;
                 }
 
