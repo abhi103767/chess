@@ -54,13 +54,15 @@ function Cell({ identity, focusIdentity, index, handleClick, focusIndex, possibl
 
         possiblePosition.forEach((item) => {
             let [possibleRow, possibleCol] = item;
+            
+
+            console.log(possibleCol,possibleRow,focusIdentity);
 
 
             if (possibleRow === row && possibleCol === col && focusIdentity.includes(isCurrentChance)) {
                 // console.log(isCurrentChance);
                 // console.log(focusIdentity);
                 // console.log(row + " " + col)
-
                 setFocusPossibleChances(true);
             }
         })

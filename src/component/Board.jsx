@@ -188,7 +188,7 @@ function Board() {
                         if (isQueenPresent.length !== 0) return true;
                         return false;
                     });
-                    console.log(isBishopAndQueenEnemy);
+                    // console.log(isBishopAndQueenEnemy);
 
                     if (!isBishopAndQueenEnemy.every((item) => item === false))
                         return true;
@@ -244,8 +244,8 @@ function Board() {
                     ];
 
 
-                    console.log(row, col)
-                    console.log(KingTeam);
+                    // console.log(row, col)
+                    // console.log(KingTeam);
                     const [enemyrow, enemycol] = allEnemyPosition[kingEnemyPositionName][0];
 
 
@@ -449,9 +449,9 @@ function Board() {
             for (let key in blackBoard) {
                 allblackBoard[key] = [...blackBoard[key]];
             }
-            console.log(allblackBoard)
-            console.log(duplicateNewBlackBoard)
-            console.log(identity)
+            // console.log(allblackBoard)
+            // console.log(duplicateNewBlackBoard)
+            // console.log(identity)
             if (identity) allblackBoard[identity] = duplicateNewBlackBoard;
             return {
                 duplicateNewBlackBoard,
@@ -568,8 +568,8 @@ function Board() {
             });
         }
         for (let key in blackBoard) {
-            console.log(key);
-            console.log(blackBoard)
+            // console.log(key);
+            // console.log(blackBoard)
             blackBoard[key].forEach((item) => {
                 // console.log(item)
                 duplicateBlackBoard.push(item);
