@@ -618,6 +618,7 @@ function Board() {
         }
     }, [attackOnBlackKing, attackOnWhiteKing]);
 
+
     return (
         <div className="">
             <div className="">Current Chance  {isCurrentChance === "Black" ? "Red" : "Blue"}</div>
