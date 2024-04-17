@@ -1,9 +1,11 @@
 const match =require('../model/match.model')
 const user = require('../model/user.model');
+const chat = require('../model/chat.model')
 
 
 
-module.export= {
-    match,
-    user
+module.exports= {
+    match, 
+    user,
+    chat
 }

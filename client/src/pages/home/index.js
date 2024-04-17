@@ -6,9 +6,11 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
     console.log({socket})
 
     const joinRoom = () => {
+        console.log('join room')
         if (room !== '' && username !== '') {
           socket.emit('join_room', { username, room });
         }
+        console.log('refering to chat')
         navigate('/chat', { replace: true }); 
       };
 
@@ -22,7 +24,7 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
         <h1>{`<>DevRooms</>`}</h1>
         <input className={styles.input} placeholder='Username...' onInput={(e) => setUsername(e.target.value)} />
 
-        <select className={styles.input}>
+        <select className={styles.input} onChange = {(e) => setRoom(e.target.value)} >
           <option>-- Select Room --</option>
           <option value='javascript'>JavaScript</option>
           <option value='node'>Node</option>
@@ -30,7 +32,7 @@ const Home = ({ username, setUsername, room, setRoom, socket }) => {
           <option value='react'>React</option>
         </select>
 
-        <button className='btn btn-secondary' style={{ width: '100%' }} onClick={() => joinRoom}>Join Room</button>
+        <button className='btn btn-secondary' style={{ width: '100%' }} onClick={() => joinRoom()}>Join Room</button>
 
       </div>
     </div>
