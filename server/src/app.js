@@ -5,6 +5,8 @@ const cors = require('cors');
 const dbConnect = require('./db/config')
 const db = require('./model/index.model')
 const { Server } = require('socket.io'); // Add this
+const leaveRoom = require('./utils/leave-room')
+
 require('dotenv').config()
 
 app.use(cors()); // Add cors middleware
@@ -46,14 +48,14 @@ io.on('connection', (socket) => {
     chatRoomUsers = allUsers.filter((user) => user.room === room);
     socket.to(room).emit('chatroom_users', chatRoomUsers);
     socket.emit('chatroom_users', chatRoomUsers);
-    
+
 
     const chat_list = await db.chat.find({ room }, {
       username: 1,
       message: 1,
       __createdtime__ : "$created_date",
       room: 1
-    }).sort({ created_date: -1 }).limit(100).lean().exec();
+    }).sort({ created_date: 1 }).limit(100).lean().exec();
 
 
     console.log({ chat_list })
@@ -78,11 +80,7 @@ io.on('connection', (socket) => {
     console.log({ new_data })
     // if(error) console.log(error)
 
-    // socket.to(room).emit('receive_message', {
-    //   message: `I want to give recieve `,
-    //   username: username,
-    //   __createdtime__,
-    // });
+    socket.to(data?.room).emit('receive_message', data);
 
     console.log({ data })
   })
