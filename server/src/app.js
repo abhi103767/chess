@@ -31,42 +31,136 @@ const CHAT_BOT = 'ChatBot';
 // Add this
 let chatRoom = ''; // E.g. javascript, node,...
 let allUsers = []; // All users in current chat room
+const roomData  = {}
+// io.on('connection', (socket) => {
+//   console.log(`User connected ${socket.id}`);
+
+//   socket.on('join_room', async (data) => {
+
+
+
+//     console.log("joined room")
+
+//     const { username, room } = data; // Data sent from client when join_room event emitted
+    
+//    if(roomData.room){
+//     socket.join(roomData.room)
+//     delete roomData['room']
+//    }
+//    else {
+//     socket.join(room)
+//     roomData['room'] = 1;
+//    }
+
+
+  
+//     // 1 phela user aaya 
+//     // 2 user aaya 
+    
+//   ; // Join the user to a socket room
+//     let __createdtime__ = Date.now(); // Current timestamp
+//     // Send message to all users currently in the room, apart from the user that just joined
+
+//     chatRoom = room;
+//     allUsers.push({ id: socket.id, username, room });
+//     chatRoomUsers = allUsers.filter((user) => user.room === room);
+//     socket.to(room).emit('chatroom_users', chatRoomUsers);
+//     socket.emit('chatroom_users', chatRoomUsers);
+
+
+//     const chat_list = await db.chat.find({ room }, {
+//       username: 1,
+//       message: 1,
+//       __createdtime__ : "$created_date",
+//       room: 1
+//     }).sort({ created_date: 1 }).limit(100).lean().exec();
+
+
+//     console.log({ chat_list })
+
+//     socket.to(room).emit('receive_message', {
+//       message: `${username} has joined the chat room`,
+//       username: username,
+//       __createdtime__,
+//     });
+
+//     socket.emit('last_100_messages', JSON.stringify(chat_list))
+//   })
+
+
+
+//   socket.on('send_message', async (data) => {
+//     console.log('recieved the message')
+//     data.created_date = Date.now();
+
+//     console.log({ data })
+//     const new_data = await db.chat.create(data);
+//     console.log({ new_data })
+//     // if(error) console.log(error)
+
+//     socket.to(data?.room).emit('receive_message', data);
+
+//     console.log({ data })
+//   })
+
+
+
+//   socket.on('leave_room', (data) => {
+//     const { username, room } = data;
+//     socket.leave(room);
+//     const __createdtime__ = Date.now();
+//     // Remove user from memory
+//     allUsers = leaveRoom(socket.id, allUsers);
+//     socket.to(room).emit('chatroom_users', allUsers);
+//     socket.to(room).emit('receive_message', {
+//       username: CHAT_BOT,
+//       message: `${username} has left the chat`,
+//       __createdtime__,
+//     });
+//     console.log(`${username} has left the chat`);
+//   });
+
+
+
+//   // We can write our socket event listeners in here...
+// });
+
+
 io.on('connection', (socket) => {
   console.log(`User connected ${socket.id}`);
 
   socket.on('join_room', async (data) => {
+
+
+
     console.log("joined room")
 
-    const { username, room } = data; // Data sent from client when join_room event emitted
-    console.log({ data })
-    socket.join(room); // Join the user to a socket room
+    let { username, room } = data; // Data sent from client when join_room event emitted
+    
+   if(roomData.room){
+    room = roomData.room
+    socket.join(roomData.room)
+    allUsers.push({ id: socket.id, username, room :  roomData.room });
+    delete roomData['room']
+   }
+   else {
+    socket.join(room)
+    allUsers.push({ id: socket.id, username, room  });
+    socket.to(room).emit('foundThePlayer', {});
+    roomData['room'] = 1;
+   }
+    // 1 phela user aaya 
+    // 2 user aaya 
+    
+    // Join the user to a socket room
     let __createdtime__ = Date.now(); // Current timestamp
-    // Send message to all users currently in the room, apart from the user that just joined
-
+    // Send message to all users currently in the room, 
+   
     chatRoom = room;
-    allUsers.push({ id: socket.id, username, room });
-    chatRoomUsers = allUsers.filter((user) => user.room === room);
-    socket.to(room).emit('chatroom_users', chatRoomUsers);
-    socket.emit('chatroom_users', chatRoomUsers);
-
-
-    const chat_list = await db.chat.find({ room }, {
-      username: 1,
-      message: 1,
-      __createdtime__ : "$created_date",
-      room: 1
-    }).sort({ created_date: 1 }).limit(100).lean().exec();
-
-
-    console.log({ chat_list })
-
-    socket.to(room).emit('receive_message', {
-      message: `${username} has joined the chat room`,
-      username: username,
-      __createdtime__,
-    });
-
-    socket.emit('last_100_messages', JSON.stringify(chat_list))
+    
+    chessMatchPlayers = allUsers.filter((user) => user.room === room);
+    socket.to(room).emit('chessroom_users', chessMatchPlayers);
+    socket.emit('chessroom_users', chessMatchPlayers);
   })
 
 
@@ -75,9 +169,9 @@ io.on('connection', (socket) => {
     console.log('recieved the message')
     data.created_date = Date.now();
 
-    console.log({ data })
+    // console.log({ data })
     const new_data = await db.chat.create(data);
-    console.log({ new_data })
+    // console.log({ new_data })
     // if(error) console.log(error)
 
     socket.to(data?.room).emit('receive_message', data);
