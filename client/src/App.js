@@ -1,7 +1,8 @@
 import logo from './logo.svg';
-import './index.css';
+import './App.css';
 import { useState } from 'react'; // Add this
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Board from './component/Board'
 import io from 'socket.io-client'; // Add this
 import Home from './pages/home';
 import Chat from './pages/chat'
@@ -17,27 +18,12 @@ function App() {
     <Router>
       <div className='App'>
         <Routes>
-          <Route
-            path='/'
-            element={
-              <Home
-              username={username}
-                setUsername={setUsername}
-                room={room}
-                setRoom={setRoom}
-                socket={socket}
-              />
+        
+          
+
               
-            }
-          />
-<Route
-            path='/chat'
-            element={
-              <Chat username={username} room={room} socket={socket}
-              />
-              
-            }
-          />
+            
+          <Route path = '/chess' element={<Board />}></Route>
 
           
         </Routes>
