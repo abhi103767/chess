@@ -136,18 +136,20 @@ io.on('connection', (socket) => {
     console.log("joined room")
 
     let { username, room } = data; // Data sent from client when join_room event emitted
-    
+    console.log({username,room})
+    console.log({roomData})
    if(roomData.room){
+    console.log('found the player')
     room = roomData.room
     socket.join(roomData.room)
+    socket.to(room).emit('foundThePlayer', {});
     allUsers.push({ id: socket.id, username, room :  roomData.room });
     delete roomData['room']
    }
    else {
     socket.join(room)
     allUsers.push({ id: socket.id, username, room  });
-    socket.to(room).emit('foundThePlayer', {});
-    roomData['room'] = 1;
+    roomData['room'] = room;
    }
     // 1 phela user aaya 
     // 2 user aaya 
