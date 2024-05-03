@@ -6,8 +6,17 @@ import queenLogic from "../Logic/Queen";
 import rookLogic from "../Logic/Rook";
 import bishopLogic from "../Logic/Bishop";
 import kingLogic from "../Logic/King";
+import {useLocation} from 'react-router-dom'
+import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
 
-function Board() {
+function Board({socket}) {
+    const location = useLocation()
+    console.log({location})
+    const  room  = location?.state?.room
+
+     
+
+
     const [allWhitefillPosition, setWhiteAllFillPosition] = useState([]);
     const [allBlackfillPosition, setBlackAllFillPosition] = useState([]);
     const [possiblePosition, setpossiblePosition] = useState([]);
@@ -16,6 +25,10 @@ function Board() {
     const [focusIdentity, setFocusIndentity] = useState("");
     const [attackOnWhiteKing, setAttackOnWhiteKing] = useState(false);
     const [attackOnBlackKing, setAttackOnBlackKing] = useState(false);
+
+
+
+
     const [whiteBoard, setWhiteBoard] = useState({
         PawnWhite: [
             [1, 0],
@@ -69,6 +82,18 @@ function Board() {
         QueenBlack: [[7, 3]],
         KingBlack: [[7, 4]],
     });
+
+
+    useEffect(() => {
+        socket.on('played',  (data) => {
+            console.log('running played functions');
+            console.log(data)
+            const {allblackBoard,allwhiteBoard,isCurrentChance} = data;
+            setCurrentChance(isCurrentChance)
+            setBlackBoard(allblackBoard);
+            setWhiteBoard(allwhiteBoard);
+        })
+    },[socket])
 
     const chessCoreLogic = (team, index, identity, whiteBoard, blackBoard, allWhitefillPosition, allBlackfillPosition) => {
         if (identity === "KingSafe") {
@@ -520,6 +545,12 @@ function Board() {
 
         if (isCurrentChance === "White") {
             const { duplicateNewBlackBoard, duplicateNewWhiteBoard, allblackBoard, allwhiteBoard } = duplicateChangingPosition(focusIdentity, focusIndex, isCurrentChance, row, col, current, identity);
+            const new_chance = isCurrentChance === 'White' ? 'Black' : 'White';
+
+
+            socket.emit('changeposition', {allblackBoard,allwhiteBoard, isCurrentChance :  new_chance,room });
+
+
             if (current === "Black") {
                 setBlackBoard(allblackBoard);
             }
@@ -528,9 +559,17 @@ function Board() {
                 if (perv === "White") return "Black";
                 else return "White";
             });
+
             setFocusIndex([]);
+
+
         } else {
             const { duplicateNewBlackBoard, duplicateNewWhiteBoard, allwhiteBoard, allblackBoard } = duplicateChangingPosition(focusIdentity, focusIndex, isCurrentChance, row, col, current, identity);
+            const new_chance = isCurrentChance === 'White' ? 'Black' : 'White';
+
+            socket.emit('changeposition', {allblackBoard,allwhiteBoard, isCurrentChance :  new_chance,room });
+
+
             if (current === "White") {
 
                 setWhiteBoard(allwhiteBoard);
@@ -620,8 +659,11 @@ function Board() {
 
 
     return (
+
         <div className="">
+            <h3> Room :  {room}</h3>
             <div className="">Current Chance  {isCurrentChance === "Black" ? "Red" : "Blue"}</div>
+
             <div className="board">
                 {board.map((item, row) =>
                     item.map((subitem, col) => (

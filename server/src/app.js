@@ -129,22 +129,36 @@ const roomData  = {}
 io.on('connection', (socket) => {
   console.log(`User connected ${socket.id}`);
 
+  let obj = {counter : 1}
+  
   socket.on('join_room', async (data) => {
 
 
-
+    obj.counter  = obj.counter+1;
+    let count = obj.counter;
     console.log("joined room")
 
     let { username, room } = data; // Data sent from client when join_room event emitted
     console.log({username,room})
     console.log({roomData})
+    if(roomData.room){
+      room = roomData.room;
+    }
+    
+
+
+   
+
    if(roomData.room){
-    console.log('found the player')
-    room = roomData.room
-    socket.join(roomData.room)
-    socket.to(room).emit('foundThePlayer', {});
+    console.log('we are ing room')
+    
+    socket.join(room);
+
+    io.in(room).emit("foundThePlayer", {room})
+
     allUsers.push({ id: socket.id, username, room :  roomData.room });
-    delete roomData['room']
+    delete roomData['room'];
+  
    }
    else {
     socket.join(room)
@@ -161,9 +175,11 @@ io.on('connection', (socket) => {
     chatRoom = room;
     
     chessMatchPlayers = allUsers.filter((user) => user.room === room);
-    socket.to(room).emit('chessroom_users', chessMatchPlayers);
-    socket.emit('chessroom_users', chessMatchPlayers);
+    // socket.to(room).emit('chessroom_users', chessMatchPlayers);
+    // socket.emit('chessroom_users', chessMatchPlayers);
   })
+
+
 
 
 
@@ -181,6 +197,13 @@ io.on('connection', (socket) => {
     console.log({ data })
   })
 
+
+  socket.on('changeposition' , (data) => {
+    // console.log('')
+    const room = data.room;
+    console.log("room is running" + {room})
+    socket.to(room).emit('played', data)
+  })
 
 
   socket.on('leave_room', (data) => {
@@ -205,6 +228,7 @@ io.on('connection', (socket) => {
 
 server.listen(4000, async () => {
   await dbConnect()
+  // 
   console.log('Server is running on port 3000')
 }
 );
