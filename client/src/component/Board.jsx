@@ -25,6 +25,8 @@ function Board({socket}) {
     const [focusIdentity, setFocusIndentity] = useState("");
     const [attackOnWhiteKing, setAttackOnWhiteKing] = useState(false);
     const [attackOnBlackKing, setAttackOnBlackKing] = useState(false);
+    const [isMyTurn, setIsMyTurn] = useState(false);
+    const color = "White"
 
 
 
@@ -92,6 +94,11 @@ function Board({socket}) {
             setCurrentChance(isCurrentChance)
             setBlackBoard(allblackBoard);
             setWhiteBoard(allwhiteBoard);
+            setIsMyTurn(!isMyTurn)
+        })
+        socket.on('startgame',(data) => {
+            setCurrentChance(data?.color)
+            setIsMyTurn(data?.isMyTurn)
         })
     },[socket])
 
@@ -561,6 +568,7 @@ function Board({socket}) {
             });
 
             setFocusIndex([]);
+            setIsMyTurn(!isMyTurn)
 
 
         } else {
@@ -571,7 +579,6 @@ function Board({socket}) {
 
 
             if (current === "White") {
-
                 setWhiteBoard(allwhiteBoard);
             }
 
@@ -581,6 +588,7 @@ function Board({socket}) {
                 else return "White";
             });
             setFocusIndex([]);
+            setIsMyTurn(!isMyTurn)
         }
     };
 
@@ -662,6 +670,7 @@ function Board({socket}) {
 
         <div className="">
             <h3> Room :  {room}</h3>
+            {!isMyTurn && <div className="overlay">Waiting for opponent...</div>}
             <div className="">Current Chance  {isCurrentChance === "Black" ? "Red" : "Blue"}</div>
 
             <div className="board">
@@ -670,11 +679,11 @@ function Board({socket}) {
                         <Cell
                             identity={subitem}
                             index={[row, col]}
-                            handleClick={changeFocus}
+                            handleClick={isMyTurn ? changeFocus: () => {}}
                             isCurrentChance={isCurrentChance}
                             focusIndex={focusIndex}
                             possiblePosition={possiblePosition}
-                            ChangingPosition={ChangingPosition}
+                            ChangingPosition={isMyTurn ? ChangingPosition:() => {}}
                             focusIdentity={focusIdentity}
                         />
 

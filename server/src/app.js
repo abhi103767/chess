@@ -128,16 +128,11 @@ const roomData  = {}
 
 io.on('connection', (socket) => {
   console.log(`User connected ${socket.id}`);
-
   let obj = {counter : 1}
-  
   socket.on('join_room', async (data) => {
-
-
     obj.counter  = obj.counter+1;
     let count = obj.counter;
     console.log("joined room")
-
     let { username, room } = data; // Data sent from client when join_room event emitted
     console.log({username,room})
     console.log({roomData})
@@ -145,28 +140,31 @@ io.on('connection', (socket) => {
       room = roomData.room;
     }
     
-
-
-   
+   allUsers.push({ id: socket.id, username, room  });
 
    if(roomData.room){
     console.log('we are ing room')
     
     socket.join(room);
-
     io.in(room).emit("foundThePlayer", {room})
 
     allUsers.push({ id: socket.id, username, room :  roomData.room });
+    io.to(allUsers[allUsers.length - 1].id).emit('startgame',{'color': "White",isMyTurn : false})
+    io.to(allUsers[allUsers.length - 2].id).emit('startgame',{'color': "White", isMyTurn : true})
     delete roomData['room'];
   
    }
    else {
     socket.join(room)
-    allUsers.push({ id: socket.id, username, room  });
+   
     roomData['room'] = room;
    }
     // 1 phela user aaya 
     // 2 user aaya 
+
+    // same room 
+    // different window 
+    // I wanted to make window freeze
     
     // Join the user to a socket room
     let __createdtime__ = Date.now(); // Current timestamp
