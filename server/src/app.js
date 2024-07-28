@@ -22,6 +22,10 @@ const io = new Server(server, {
 });
 
 
+app.get('home', (req,next) => {
+  res.send('Welcome to home')
+})
+
 // resue
 // Add this
 // Listen for when the client connects via socket.io-client
