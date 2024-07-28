@@ -20,9 +20,9 @@ function App() {
     <Router>
       <div className='App'>
         <Routes>
+        <Route path='/' element={<InputFrom socket={socket} username={username}  setUsername={setUsername}  />}></Route>
           <Route path='/loading' element={<Loader socket={socket} username={username} />}></Route>
           <Route path = '/chess' element={<Board socket={socket}/>}></Route>
-          <Route path='/inputFrom' element={<InputFrom socket={socket} username={username}  setUsername={setUsername}  />}></Route>
         </Routes>
       </div>
     </Router>
