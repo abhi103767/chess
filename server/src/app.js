@@ -14,6 +14,14 @@ app.use(cors()); // Add cors middleware
 const server = http.createServer(app); // Add this
 
 // Create an io server and allow for CORS from http://localhost:3000 with GET and POST methods
+
+
+
+
+app.get('home', (req,next) => {
+  res.send('Welcome to home')
+})
+
 const io = new Server(server, {
   cors: {
     origin: 'http://localhost:3000',
@@ -22,9 +30,6 @@ const io = new Server(server, {
 });
 
 
-app.get('home', (req,next) => {
-  res.send('Welcome to home')
-})
 
 // resue
 // Add this
@@ -231,6 +236,6 @@ io.on('connection', (socket) => {
 server.listen(4000, async () => {
   await dbConnect()
   // 
-  console.log('Server is running on port 3000')
+  console.log('Server is running on port 4000')
 }
 );
